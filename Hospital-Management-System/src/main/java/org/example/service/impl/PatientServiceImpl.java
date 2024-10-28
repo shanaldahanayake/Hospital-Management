@@ -13,58 +13,83 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class PatientServiceImpl implements PatientService {
+public class PatientServiceImpl implements PatientService{
 
+    List<Patient> patientList = new ArrayList<>();
 
-    final PatientRepository repository;
-    final ModelMapper mapper;
+    final PatientRepository patientRepository;
+    final ModelMapper modelMapper;
 
-    List<Patient> patients=new ArrayList<>();
     @Override
     public List<Patient> getPatient() {
-        for (PatientEntity patientEntity : repository.findAll()) {
-            patients.add(mapper.map(patientEntity,Patient.class));
-        }
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findAll().forEach(patientEntity -> {
+            patients.add(modelMapper.map(patientEntity, Patient.class));
+        });
         return patients;
     }
 
     @Override
     public void addPatient(Patient patient) {
-        repository.save(mapper.map(patient, PatientEntity.class));
+        patientRepository.save(modelMapper.map(patient, PatientEntity.class));
     }
 
     @Override
     public void deletePatient(Integer id) {
-
+        patientRepository.deleteById(id);
     }
 
     @Override
     public List<Patient> findPatientByName(String name) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByName(name).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 
     @Override
     public List<Patient> findPatientByNIC(String nic) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByNic(nic).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 
     @Override
     public List<Patient> findPatientByAddress(String address) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByAddress(address).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 
     @Override
     public List<Patient> findPatientByBloodGroup(String bloodGroup) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByBloodGroup(bloodGroup).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 
     @Override
     public List<Patient> findPatientByCategory(String category) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByCategory(category).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 
     @Override
     public List<Patient> findPatientByContact(String contact) {
-        return List.of();
+        List<Patient> patients = new ArrayList<>();
+        patientRepository.findByContact(contact).forEach(entity->{
+            patients.add(modelMapper.map(entity,Patient.class));
+        });
+        return patients;
     }
 }

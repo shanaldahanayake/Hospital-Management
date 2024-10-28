@@ -13,15 +13,14 @@ import java.util.List;
 @RequestMapping("/patient")
 @RequiredArgsConstructor
 public class PatientController {
+    final PatientService patientService;
 
-    private final PatientService patientService;
-
-    @GetMapping("/get")
+    @GetMapping("/get-all")
     public List<Patient> getPatient(){
         return patientService.getPatient();
     }
 
-    @PostMapping("/add")
+    @PostMapping("/add-patient")
     @ResponseStatus(HttpStatus.CREATED)
     public void addPatient(@RequestBody Patient patient){
         patientService.addPatient(patient);
@@ -60,4 +59,6 @@ public class PatientController {
     @GetMapping("/find-by-contact/{contact}")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public List<Patient> findPatientByContact(@PathVariable String contact){ return patientService.findPatientByContact(contact); }
+
+
 }
